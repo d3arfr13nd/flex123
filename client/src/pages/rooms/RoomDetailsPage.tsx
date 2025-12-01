@@ -78,7 +78,7 @@ export const RoomDetailsPage: React.FC = () => {
   if (isLoading) {
     return (
       <MainLayout>
-        <PageContainer title="Room Details">
+        <PageContainer title="Деталі кімнати">
           <div style={{ textAlign: 'center', padding: '48px' }}>
             <Spin size="large" />
           </div>
@@ -90,8 +90,8 @@ export const RoomDetailsPage: React.FC = () => {
   if (!room) {
     return (
       <MainLayout>
-        <PageContainer title="Room Details">
-          <Empty description="Room not found" />
+        <PageContainer title="Деталі кімнати">
+          <Empty description="Кімнату не знайдено" />
         </PageContainer>
       </MainLayout>
     );
@@ -112,7 +112,7 @@ export const RoomDetailsPage: React.FC = () => {
       <PageContainer
         title={room.name}
         breadcrumb={[
-          { label: 'Rooms', path: '/rooms' },
+          { label: 'Кімнати', path: '/rooms' },
           { label: room.name },
         ]}
       >
@@ -142,7 +142,7 @@ export const RoomDetailsPage: React.FC = () => {
                     color: '#595959',
                   }}
                 >
-                  No Images Available
+                  Зображення недоступні
                 </div>
               )}
 
@@ -161,11 +161,11 @@ export const RoomDetailsPage: React.FC = () => {
                   )}
 
                   <div>
-                    <Title level={5}>Amenities</Title>
+                    <Title level={5}>Зручності</Title>
                     <List
                       dataSource={room.amenities}
                       renderItem={(item) => <List.Item>{item}</List.Item>}
-                      locale={{ emptyText: 'No amenities listed' }}
+                      locale={{ emptyText: 'Зручності не вказано' }}
                     />
                   </div>
                 </Space>
@@ -174,24 +174,24 @@ export const RoomDetailsPage: React.FC = () => {
           </Col>
 
           <Col xs={24} lg={8}>
-            <Card title="Booking" style={{ position: 'sticky', top: 24 }}>
+            <Card title="Бронювання" style={{ position: 'sticky', top: 24 }}>
               <Space direction="vertical" size="large" style={{ width: '100%' }}>
                 <Space>
                   <DollarOutlined style={{ color: '#1677FF', fontSize: 20 }} />
                   <Text strong style={{ fontSize: 20, color: '#1677FF' }}>
-                    ${Number(room.priceHour).toFixed(2)}/hour
+                    ${Number(room.priceHour).toFixed(2)}/година
                   </Text>
                 </Space>
 
                 <Space>
                   <UserOutlined style={{ color: '#595959' }} />
                   <Text style={{ color: '#595959' }}>
-                    Capacity: Up to {room.capacity} people
+                    Місткість: До {room.capacity} осіб
                   </Text>
                 </Space>
 
                 <div>
-                  <Text strong>Select Date</Text>
+                  <Text strong>Оберіть дату</Text>
                   <DatePicker
                     style={{ width: '100%', marginTop: 8 }}
                     value={selectedDate}
@@ -201,7 +201,7 @@ export const RoomDetailsPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <Text strong>Select Time Range</Text>
+                  <Text strong>Оберіть часовий діапазон</Text>
                   <RangePicker
                     style={{ width: '100%', marginTop: 8 }}
                     format="HH:mm"
@@ -216,12 +216,12 @@ export const RoomDetailsPage: React.FC = () => {
                   onClick={handleCalculatePrice}
                   disabled={!selectedDate || !timeRange[0] || !timeRange[1]}
                 >
-                  Calculate Price
+                  Розрахувати ціну
                 </Button>
 
                 {calculatedPrice !== null && (
                   <Alert
-                    message={`Total Price: $${calculatedPrice.toFixed(2)}`}
+                    message={`Загальна ціна: $${calculatedPrice.toFixed(2)}`}
                     type="info"
                   />
                 )}
@@ -235,7 +235,7 @@ export const RoomDetailsPage: React.FC = () => {
                   disabled={!selectedDate || !timeRange[0] || !timeRange[1]}
                   loading={createBooking.isPending}
                 >
-                  Book Now
+                  Забронювати зараз
                 </Button>
               </Space>
             </Card>

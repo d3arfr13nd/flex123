@@ -1,7 +1,7 @@
 import { IsEmail } from 'class-validator';
 
 export class ForgotPasswordDto {
-  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsEmail({}, { message: 'Електронна адреса повинна бути валідною' })
   email: string;
 }
 

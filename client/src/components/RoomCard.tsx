@@ -50,7 +50,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
               color: '#595959',
             }}
           >
-            No Image
+            Немає зображення
           </div>
         )
       }
@@ -65,13 +65,13 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
 
         <Space>
           <UserOutlined style={{ color: '#595959' }} />
-          <Text style={{ color: '#595959' }}>Up to {room.capacity} people</Text>
+          <Text style={{ color: '#595959' }}>До {room.capacity} осіб</Text>
         </Space>
 
         <Space>
           <DollarOutlined style={{ color: '#1677FF', fontWeight: 'bold' }} />
           <Text strong style={{ color: '#1677FF', fontSize: '16px' }}>
-            ${Number(room.priceHour).toFixed(2)}/hour
+            ${Number(room.priceHour).toFixed(2)}/година
           </Text>
         </Space>
 
@@ -80,14 +80,14 @@ export const RoomCard: React.FC<RoomCardProps> = ({ room }) => {
             onClick={() => navigate(`/rooms/${room.id}`)}
             style={{ flex: 1 }}
           >
-            View Details
+            Деталі
           </Button>
           <Button
             type="primary"
             onClick={() => navigate(`/rooms/${room.id}`)}
             style={{ flex: 1 }}
           >
-            Book Now
+            Забронювати
           </Button>
         </Space>
       </Space>

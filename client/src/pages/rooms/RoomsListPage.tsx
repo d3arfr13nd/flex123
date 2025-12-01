@@ -29,8 +29,8 @@ export const RoomsListPage: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer
-        title="Rooms & Spaces"
-        breadcrumb={[{ label: 'Rooms' }]}
+        title="Кімнати та простори"
+        breadcrumb={[{ label: 'Кімнати' }]}
         extra={
           isAdmin && (
             <Button
@@ -38,7 +38,7 @@ export const RoomsListPage: React.FC = () => {
               icon={<PlusOutlined />}
               onClick={() => setDrawerOpen(true)}
             >
-              Add Room
+              Додати кімнату
             </Button>
           )
         }
@@ -48,21 +48,21 @@ export const RoomsListPage: React.FC = () => {
             <Row gutter={16}>
               <Col xs={24} sm={12} md={6}>
                 <Select
-                  placeholder="Room Type"
+                  placeholder="Тип кімнати"
                   allowClear
                   style={{ width: '100%' }}
                   onChange={(value) => setFilters({ ...filters, type: value })}
                   options={[
-                    { label: 'Desk', value: 'desk' },
+                    { label: 'Робоче місце', value: 'desk' },
                     { label: 'VIP', value: 'vip' },
-                    { label: 'Meeting', value: 'meeting' },
-                    { label: 'Conference', value: 'conference' },
+                    { label: 'Зустріч', value: 'meeting' },
+                    { label: 'Конференція', value: 'conference' },
                   ]}
                 />
               </Col>
               <Col xs={24} sm={12} md={6}>
                 <InputNumber
-                  placeholder="Min Capacity"
+                  placeholder="Мін. місткість"
                   style={{ width: '100%' }}
                   min={1}
                   onChange={(value) => setFilters({ ...filters, minCapacity: value || undefined })}
@@ -70,7 +70,7 @@ export const RoomsListPage: React.FC = () => {
               </Col>
               <Col xs={24} sm={12} md={6}>
                 <InputNumber
-                  placeholder="Max Capacity"
+                  placeholder="Макс. місткість"
                   style={{ width: '100%' }}
                   min={1}
                   onChange={(value) => setFilters({ ...filters, maxCapacity: value || undefined })}
@@ -78,7 +78,7 @@ export const RoomsListPage: React.FC = () => {
               </Col>
               <Col xs={24} sm={12} md={6}>
                 <Search
-                  placeholder="Search rooms"
+                  placeholder="Пошук кімнат"
                   allowClear
                   onSearch={(value) => setFilters({ ...filters, search: value || undefined })}
                 />
@@ -100,7 +100,7 @@ export const RoomsListPage: React.FC = () => {
             ))}
           </Row>
         ) : (
-          <Empty description="No rooms found" />
+          <Empty description="Кімнати не знайдено" />
         )}
 
         {drawerOpen && (

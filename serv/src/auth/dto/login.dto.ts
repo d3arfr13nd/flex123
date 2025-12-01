@@ -1,7 +1,7 @@
 import { IsEmail, IsString } from 'class-validator';
 
 export class LoginDto {
-  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsEmail({}, { message: 'Електронна адреса повинна бути валідною' })
   email: string;
 
   @IsString()

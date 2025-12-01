@@ -22,24 +22,24 @@ export const AppSidebar: React.FC = () => {
     {
       key: '/rooms',
       icon: <AppstoreOutlined />,
-      label: 'Rooms',
+      label: 'Кімнати',
     },
     {
       key: '/bookings/my',
       icon: <CalendarOutlined />,
-      label: 'My Bookings',
+      label: 'Мої бронювання',
     },
     ...(user?.role === 'Admin'
       ? [
           {
             key: '/bookings',
             icon: <CalendarOutlined />,
-            label: 'All Bookings',
+            label: 'Всі бронювання',
           },
           {
             key: '/users',
             icon: <UserOutlined />,
-            label: 'Users',
+            label: 'Користувачі',
           },
         ]
       : []),

@@ -23,46 +23,54 @@ export const MyBookingsPage: React.FC = () => {
 
   const columns = [
     {
-      title: 'Room',
+      title: 'Кімната',
       dataIndex: 'room',
       key: 'room',
-      render: (room: Booking['room']) => room?.name || 'N/A',
+      render: (room: Booking['room']) => room?.name || 'Н/Д',
     },
     {
-      title: 'Date',
+      title: 'Дата',
       dataIndex: 'dateStart',
       key: 'date',
-      render: (date: string) => dayjs(date).format('MMM DD, YYYY'),
+      render: (date: string) => dayjs(date).format('DD MMM YYYY'),
     },
     {
-      title: 'Time',
+      title: 'Час',
       key: 'time',
       render: (_: any, record: Booking) =>
         `${dayjs(record.dateStart).format('HH:mm')} - ${dayjs(record.dateEnd).format('HH:mm')}`,
     },
     {
-      title: 'Total Price',
+      title: 'Загальна ціна',
       dataIndex: 'totalPrice',
       key: 'totalPrice',
       render: (price: number | string) => `$${Number(price).toFixed(2)}`,
     },
     {
-      title: 'Status',
+      title: 'Статус',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string) => (
-        <Tag color={getStatusColor(status)}>{status.toUpperCase()}</Tag>
-      ),
+      render: (status: string) => {
+        const statusMap: Record<string, string> = {
+          pending: 'Очікується',
+          paid: 'Сплачено',
+          cancelled: 'Скасовано',
+          done: 'Завершено',
+        };
+        return (
+          <Tag color={getStatusColor(status)}>{statusMap[status] || status.toUpperCase()}</Tag>
+        );
+      },
     },
     {
-      title: 'Actions',
+      title: 'Дії',
       key: 'actions',
       render: (_: any, record: Booking) => (
         <Popconfirm
-          title="Are you sure you want to cancel this booking?"
+          title="Ви впевнені, що хочете скасувати це бронювання?"
           onConfirm={() => cancelBooking.mutate(record.id)}
-          okText="Yes"
-          cancelText="No"
+          okText="Так"
+          cancelText="Ні"
           disabled={record.status === 'cancelled' || record.status === 'done'}
         >
           <Button
@@ -71,7 +79,7 @@ export const MyBookingsPage: React.FC = () => {
             icon={<CloseOutlined />}
             disabled={record.status === 'cancelled' || record.status === 'done'}
           >
-            Cancel
+            Скасувати
           </Button>
         </Popconfirm>
       ),
@@ -81,12 +89,12 @@ export const MyBookingsPage: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer
-        title="My Bookings"
-        breadcrumb={[{ label: 'My Bookings' }]}
+        title="Мої бронювання"
+        breadcrumb={[{ label: 'Мої бронювання' }]}
       >
         <Card>
           <div style={{ marginBottom: 16, color: '#595959' }}>
-            Here you can see your current and past bookings.
+            Тут ви можете переглянути ваші поточні та минулі бронювання.
           </div>
           {isLoading ? (
             <div style={{ textAlign: 'center', padding: '48px' }}>
@@ -100,7 +108,7 @@ export const MyBookingsPage: React.FC = () => {
               pagination={{ pageSize: 10 }}
             />
           ) : (
-            <Empty description="No bookings found" />
+            <Empty description="Бронювання не знайдено" />
           )}
         </Card>
       </PageContainer>

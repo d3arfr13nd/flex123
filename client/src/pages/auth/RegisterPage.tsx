@@ -34,7 +34,7 @@ export const RegisterPage: React.FC = () => {
     <AuthLayout>
       <Card style={{ padding: '24px' }}>
         <Title level={2} style={{ textAlign: 'center', marginBottom: 32, color: '#1F1F1F' }}>
-          Create an Account
+          Створити обліковий запис
         </Title>
         <Form
           form={form}
@@ -45,81 +45,81 @@ export const RegisterPage: React.FC = () => {
         >
           <Form.Item
             name="name"
-            label="Full Name"
-            rules={[{ required: true, message: 'Please input your name!' }]}
+            label="Повне ім'я"
+            rules={[{ required: true, message: 'Будь ласка, введіть ваше ім\'я!' }]}
           >
             <Input
               prefix={<UserOutlined />}
-              placeholder="Full Name"
+              placeholder="Повне ім'я"
               size="large"
             />
           </Form.Item>
 
           <Form.Item
             name="email"
-            label="Email"
+            label="Електронна адреса"
             rules={[
-              { required: true, message: 'Please input your email!' },
-              { type: 'email', message: 'Please enter a valid email!' },
+              { required: true, message: 'Будь ласка, введіть вашу електронну адресу!' },
+              { type: 'email', message: 'Будь ласка, введіть валідну електронну адресу!' },
             ]}
           >
             <Input
               prefix={<MailOutlined />}
-              placeholder="Email"
+              placeholder="Електронна адреса"
               size="large"
             />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
+            label="Пароль"
             rules={[
-              { required: true, message: 'Please input your password!' },
-              { min: 8, message: 'Password must be at least 8 characters!' },
+              { required: true, message: 'Будь ласка, введіть ваш пароль!' },
+              { min: 8, message: 'Пароль повинен містити принаймні 8 символів!' },
             ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="Password"
+              placeholder="Пароль"
               size="large"
             />
           </Form.Item>
 
           <Form.Item
             name="confirmPassword"
-            label="Confirm Password"
+            label="Підтвердити пароль"
             dependencies={['password']}
             rules={[
-              { required: true, message: 'Please confirm your password!' },
+              { required: true, message: 'Будь ласка, підтвердіть ваш пароль!' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('Passwords do not match!'));
+                  return Promise.reject(new Error('Паролі не співпадають!'));
                 },
               }),
             ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="Confirm Password"
+              placeholder="Підтвердити пароль"
               size="large"
             />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large" block>
-              Register
+              Зареєструватися
             </Button>
           </Form.Item>
         </Form>
 
         <div style={{ textAlign: 'center', marginTop: 16 }}>
           <Text style={{ color: '#595959' }}>
-            Already have an account?{' '}
+            Вже маєте обліковий запис?{' '}
             <Link to="/login" style={{ color: '#1677FF' }}>
-              Sign In
+              Увійти
             </Link>
           </Text>
         </div>

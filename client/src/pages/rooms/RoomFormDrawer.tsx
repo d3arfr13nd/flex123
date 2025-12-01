@@ -60,12 +60,12 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
   const beforeUpload = (file: File) => {
     const isImage = file.type.startsWith('image/');
     if (!isImage) {
-      message.error('You can only upload image files!');
+      message.error('Можна завантажувати лише файли зображень!');
       return false;
     }
     const isLt5M = file.size / 1024 / 1024 < 5;
     if (!isLt5M) {
-      message.error('Image must be smaller than 5MB!');
+      message.error('Зображення повинно бути менше 5МБ!');
       return false;
     }
     
@@ -81,7 +81,7 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
 
   return (
     <Drawer
-      title="Add New Room"
+      title="Додати нову кімнату"
       open={open}
       onClose={() => {
         form.resetFields();
@@ -98,14 +98,14 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
               onClose();
             }}
           >
-            Cancel
+            Скасувати
           </Button>
           <Button
             type="primary"
             onClick={handleSubmit}
             loading={createRoom.isPending || uploadPhotos.isPending}
           >
-            Create
+            Створити
           </Button>
         </Space>
       }
@@ -115,49 +115,49 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
           name="slug"
           label="Slug"
           rules={[
-            { required: true, message: 'Please input slug!' },
+            { required: true, message: 'Будь ласка, введіть slug!' },
             { 
               pattern: /^[a-z0-9]+(?:-[a-z0-9]+)*$/, 
-              message: 'Slug must be lowercase letters, numbers, and hyphens only!' 
+              message: 'Slug повинен містити лише малі літери, цифри та дефіси!' 
             }
           ]}
         >
-          <Input placeholder="e.g., conference-room-a" />
+          <Input placeholder="наприклад, conference-room-a" />
         </Form.Item>
 
         <Form.Item
           name="name"
-          label="Room Name"
-          rules={[{ required: true, message: 'Please input room name!' }]}
+          label="Назва кімнати"
+          rules={[{ required: true, message: 'Будь ласка, введіть назву кімнати!' }]}
         >
-          <Input placeholder="e.g., Conference Room A" />
+          <Input placeholder="наприклад, Конференц-зал A" />
         </Form.Item>
 
         <Form.Item
           name="type"
-          label="Room Type"
-          rules={[{ required: true, message: 'Please select room type!' }]}
+          label="Тип кімнати"
+          rules={[{ required: true, message: 'Будь ласка, оберіть тип кімнати!' }]}
         >
-          <Select placeholder="Select room type">
-            <Select.Option value="desk">Desk</Select.Option>
+          <Select placeholder="Оберіть тип кімнати">
+            <Select.Option value="desk">Робоче місце</Select.Option>
             <Select.Option value="vip">VIP</Select.Option>
-            <Select.Option value="meeting">Meeting</Select.Option>
-            <Select.Option value="conference">Conference</Select.Option>
+            <Select.Option value="meeting">Зустріч</Select.Option>
+            <Select.Option value="conference">Конференція</Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
           name="capacity"
-          label="Capacity"
-          rules={[{ required: true, message: 'Please input capacity!' }]}
+          label="Місткість"
+          rules={[{ required: true, message: 'Будь ласка, введіть місткість!' }]}
         >
-          <InputNumber min={1} style={{ width: '100%' }} placeholder="Number of people" />
+          <InputNumber min={1} style={{ width: '100%' }} placeholder="Кількість осіб" />
         </Form.Item>
 
         <Form.Item
           name="priceHour"
-          label="Price per Hour ($)"
-          rules={[{ required: true, message: 'Please input price!' }]}
+          label="Ціна за годину ($)"
+          rules={[{ required: true, message: 'Будь ласка, введіть ціну!' }]}
         >
           <InputNumber
             min={0}
@@ -167,13 +167,13 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
           />
         </Form.Item>
 
-        <Form.Item name="description" label="Description">
-          <TextArea rows={4} placeholder="Room description..." />
+        <Form.Item name="description" label="Опис">
+          <TextArea rows={4} placeholder="Опис кімнати..." />
         </Form.Item>
 
         <Form.Item
           name="amenities"
-          label="Amenities (comma-separated)"
+          label="Зручності (через кому)"
           getValueFromEvent={(e) => {
             const value = e.target.value;
             return value ? value.split(',').map((item: string) => item.trim()) : [];
@@ -182,10 +182,10 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
             value: Array.isArray(value) ? value.join(', ') : value || '',
           })}
         >
-          <Input placeholder="e.g., WiFi, Projector, Whiteboard" />
+          <Input placeholder="наприклад, WiFi, Проектор, Дошка" />
         </Form.Item>
 
-        <Form.Item label="Photos">
+        <Form.Item label="Фото">
           <Upload
             fileList={fileList}
             beforeUpload={beforeUpload}
@@ -198,12 +198,12 @@ export const RoomFormDrawer: React.FC<RoomFormDrawerProps> = ({ open, onClose })
             {fileList.length < 10 && (
               <div>
                 <UploadOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
+                <div style={{ marginTop: 8 }}>Завантажити</div>
               </div>
             )}
           </Upload>
           <div style={{ marginTop: 8, color: '#595959', fontSize: 12 }}>
-            You can upload up to 10 images. Max file size: 5MB per image.
+            Можна завантажити до 10 зображень. Максимальний розмір файлу: 5МБ на зображення.
           </div>
         </Form.Item>
       </Form>

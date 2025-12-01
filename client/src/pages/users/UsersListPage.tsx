@@ -29,11 +29,11 @@ export const UsersListPage: React.FC = () => {
       usersApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      message.success('User updated successfully!');
+      message.success('Користувача успішно оновлено!');
       setEditingUser(null);
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to update user');
+      message.error(error.response?.data?.message || 'Не вдалося оновити користувача');
     },
   });
 
@@ -41,40 +41,40 @@ export const UsersListPage: React.FC = () => {
     mutationFn: (id: number) => usersApi.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      message.success('User deleted successfully!');
+      message.success('Користувача успішно видалено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to delete user');
+      message.error(error.response?.data?.message || 'Не вдалося видалити користувача');
     },
   });
 
   const columns = [
     {
-      title: 'Name',
+      title: 'Ім\'я',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Email',
+      title: 'Електронна адреса',
       dataIndex: 'email',
       key: 'email',
     },
     {
-      title: 'Role',
+      title: 'Роль',
       dataIndex: 'role',
       key: 'role',
       render: (role: string) => (
-        <Tag color={role === 'Admin' ? 'red' : 'blue'}>{role}</Tag>
+        <Tag color={role === 'Admin' ? 'red' : 'blue'}>{role === 'Admin' ? 'Адмін' : 'Користувач'}</Tag>
       ),
     },
     {
-      title: 'Created At',
+      title: 'Дата створення',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (date: string) => new Date(date).toLocaleDateString(),
+      render: (date: string) => new Date(date).toLocaleDateString('uk-UA'),
     },
     {
-      title: 'Actions',
+      title: 'Дії',
       key: 'actions',
       render: (_: any, record: User) => (
         <Space>
@@ -83,16 +83,16 @@ export const UsersListPage: React.FC = () => {
             icon={<EditOutlined />}
             onClick={() => setEditingUser(record)}
           >
-            Edit
+            Редагувати
           </Button>
           <Popconfirm
-            title="Are you sure you want to delete this user?"
+            title="Ви впевнені, що хочете видалити цього користувача?"
             onConfirm={() => deleteMutation.mutate(record.id)}
-            okText="Yes"
-            cancelText="No"
+            okText="Так"
+            cancelText="Ні"
           >
             <Button type="link" danger icon={<DeleteOutlined />}>
-              Delete
+              Видалити
             </Button>
           </Popconfirm>
         </Space>
@@ -103,22 +103,22 @@ export const UsersListPage: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer
-        title="Users"
-        breadcrumb={[{ label: 'Users' }]}
+        title="Користувачі"
+        breadcrumb={[{ label: 'Користувачі' }]}
         extra={
           <Space>
             <Select
-              placeholder="Filter by role"
+              placeholder="Фільтр за роллю"
               allowClear
               style={{ width: 150 }}
               onChange={(value) => setRoleFilter(value)}
               options={[
-                { label: 'User', value: 'User' },
-                { label: 'Admin', value: 'Admin' },
+                { label: 'Користувач', value: 'User' },
+                { label: 'Адмін', value: 'Admin' },
               ]}
             />
             <Search
-              placeholder="Search by name or email"
+              placeholder="Пошук за ім'ям або email"
               allowClear
               style={{ width: 250 }}
               prefix={<SearchOutlined />}

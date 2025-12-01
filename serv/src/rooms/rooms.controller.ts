@@ -43,13 +43,13 @@ export class RoomsController {
     @Query('date') date: string,
   ) {
     if (!date) {
-      throw new BadRequestException('Date parameter is required (format: YYYY-MM-DD)');
+      throw new BadRequestException('Параметр дати обов\'язковий (формат: YYYY-MM-DD)');
     }
 
     // Validate date format
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(date)) {
-      throw new BadRequestException('Invalid date format. Use YYYY-MM-DD');
+      throw new BadRequestException('Невірний формат дати. Використовуйте YYYY-MM-DD');
     }
 
     return this.roomsService.getAvailability(id, date);
@@ -103,7 +103,7 @@ export class RoomsController {
         // Accept only image files
         if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
           return cb(
-            new BadRequestException('Only image files are allowed'),
+            new BadRequestException('Дозволені лише файли зображень'),
             false,
           );
         }
@@ -119,7 +119,7 @@ export class RoomsController {
     @Query('roomId', ParseIntPipe) roomId: number,
   ) {
     if (!files || files.length === 0) {
-      throw new BadRequestException('No files uploaded');
+      throw new BadRequestException('Файли не завантажено');
     }
 
     // Generate URLs for uploaded files
@@ -133,7 +133,7 @@ export class RoomsController {
     const room = await this.roomsService.addPhotos(roomId, photoUrls);
 
     return {
-      message: 'Files uploaded successfully',
+      message: 'Файли успішно завантажено',
       photos: photoUrls,
       room,
     };

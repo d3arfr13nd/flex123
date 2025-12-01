@@ -43,17 +43,17 @@ export class BookingsService {
     const endDate = new Date(dateEnd);
 
     if (startDate >= endDate) {
-      throw new BadRequestException('End date must be after start date');
+      throw new BadRequestException('Дата закінчення повинна бути після дати початку');
     }
 
     if (startDate < new Date()) {
-      throw new BadRequestException('Start date cannot be in the past');
+      throw new BadRequestException('Дата початку не може бути в минулому');
     }
 
     // Verify room exists
     const room = await this.roomsService.findOne(roomId);
     if (!room) {
-      throw new NotFoundException(`Room with ID ${roomId} not found`);
+      throw new NotFoundException(`Кімнату з ID ${roomId} не знайдено`);
     }
 
     // Check for overlapping bookings at DB level
@@ -78,7 +78,7 @@ export class BookingsService {
 
     if (overlappingBooking) {
       throw new ConflictException(
-        'This time slot is already booked. Please choose a different time.',
+        'Цей часовий слот вже заброньовано. Будь ласка, оберіть інший час.',
       );
     }
 
@@ -106,7 +106,7 @@ export class BookingsService {
     });
 
     if (!bookingWithRelations) {
-      throw new NotFoundException('Failed to load booking after creation');
+      throw new NotFoundException('Не вдалося завантажити бронювання після створення');
     }
 
     return bookingWithRelations;
@@ -164,12 +164,12 @@ export class BookingsService {
     });
 
     if (!booking) {
-      throw new NotFoundException(`Booking with ID ${id} not found`);
+      throw new NotFoundException(`Бронювання з ID ${id} не знайдено`);
     }
 
     // Check access: user can only see their own bookings, admin can see all
     if (!isAdmin && userId && booking.userId !== userId) {
-      throw new ForbiddenException('You do not have access to this booking');
+      throw new ForbiddenException('У вас немає доступу до цього бронювання');
     }
 
     return booking;
@@ -181,28 +181,28 @@ export class BookingsService {
     });
 
     if (!booking) {
-      throw new NotFoundException(`Booking with ID ${id} not found`);
+      throw new NotFoundException(`Бронювання з ID ${id} не знайдено`);
     }
 
     // Check access
     if (!isAdmin && booking.userId !== userId) {
-      throw new ForbiddenException('You do not have permission to cancel this booking');
+      throw new ForbiddenException('У вас немає дозволу на скасування цього бронювання');
     }
 
     // Check if booking can be cancelled
     if (booking.status === BookingStatus.Cancelled) {
-      throw new BadRequestException('Booking is already cancelled');
+      throw new BadRequestException('Бронювання вже скасовано');
     }
 
     if (booking.status === BookingStatus.Done) {
-      throw new BadRequestException('Cannot cancel a completed booking');
+      throw new BadRequestException('Неможливо скасувати завершене бронювання');
     }
 
     // Policy: Allow cancellation if status is pending or paid
     // In a real system, you might add time-based restrictions (e.g., must cancel 24h before)
     if (booking.status !== BookingStatus.Pending && booking.status !== BookingStatus.Paid) {
       throw new BadRequestException(
-        `Cannot cancel booking with status: ${booking.status}`,
+        `Неможливо скасувати бронювання зі статусом: ${booking.status}`,
       );
     }
 
@@ -215,7 +215,7 @@ export class BookingsService {
     });
 
     if (!bookingWithRelations) {
-      throw new NotFoundException('Failed to load booking after cancellation');
+      throw new NotFoundException('Не вдалося завантажити бронювання після скасування');
     }
 
     return bookingWithRelations;
@@ -230,12 +230,12 @@ export class BookingsService {
     });
 
     if (!booking) {
-      throw new NotFoundException(`Booking with ID ${id} not found`);
+      throw new NotFoundException(`Бронювання з ID ${id} не знайдено`);
     }
 
     // Validate status transition
     if (updateStatusDto.status === BookingStatus.Cancelled && booking.status === BookingStatus.Done) {
-      throw new BadRequestException('Cannot cancel a completed booking');
+      throw new BadRequestException('Неможливо скасувати завершене бронювання');
     }
 
     booking.status = updateStatusDto.status;
@@ -247,7 +247,7 @@ export class BookingsService {
     });
 
     if (!bookingWithRelations) {
-      throw new NotFoundException('Failed to load booking after status update');
+      throw new NotFoundException('Не вдалося завантажити бронювання після оновлення статусу');
     }
 
     return bookingWithRelations;

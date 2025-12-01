@@ -25,7 +25,7 @@ export const LoginPage: React.FC = () => {
     <AuthLayout>
       <Card style={{ padding: '24px' }}>
         <Title level={2} style={{ textAlign: 'center', marginBottom: 32, color: '#1F1F1F' }}>
-          Sign in to FlexSpace
+          Вхід до FlexSpace
         </Title>
         <Form
           form={form}
@@ -36,46 +36,46 @@ export const LoginPage: React.FC = () => {
         >
           <Form.Item
             name="email"
-            label="Email"
+            label="Електронна адреса"
             rules={[
-              { required: true, message: 'Please input your email!' },
-              { type: 'email', message: 'Please enter a valid email!' },
+              { required: true, message: 'Будь ласка, введіть вашу електронну адресу!' },
+              { type: 'email', message: 'Будь ласка, введіть валідну електронну адресу!' },
             ]}
           >
             <Input
               prefix={<UserOutlined />}
-              placeholder="Email"
+              placeholder="Електронна адреса"
               size="large"
             />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
+            label="Пароль"
             rules={[
-              { required: true, message: 'Please input your password!' },
-              { min: 8, message: 'Password must be at least 8 characters!' },
+              { required: true, message: 'Будь ласка, введіть ваш пароль!' },
+              { min: 8, message: 'Пароль повинен містити принаймні 8 символів!' },
             ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="Password"
+              placeholder="Пароль"
               size="large"
             />
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large" block>
-              Sign In
+              Увійти
             </Button>
           </Form.Item>
         </Form>
 
         <div style={{ textAlign: 'center', marginTop: 16 }}>
           <Text style={{ color: '#595959' }}>
-            Don't have an account?{' '}
+            Немає облікового запису?{' '}
             <Link to="/register" style={{ color: '#1677FF' }}>
-              Register
+              Зареєструватися
             </Link>
           </Text>
         </div>

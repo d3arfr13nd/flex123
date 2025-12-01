@@ -20,7 +20,7 @@ export class UsersService {
     // Check if user exists
     const existingUser = await this.findByEmail(email);
     if (existingUser) {
-      throw new ConflictException('User with this email already exists');
+      throw new ConflictException('Користувач з такою електронною адресою вже існує');
     }
 
     // Hash password
@@ -91,7 +91,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(`Користувача з ID ${id} не знайдено`);
     }
 
     return user;
@@ -107,14 +107,14 @@ export class UsersService {
     const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(`Користувача з ID ${id} не знайдено`);
     }
 
     if (updateUserDto.email !== undefined && updateUserDto.email !== user.email) {
       // Check if email is already taken by another user
       const existingUser = await this.findByEmail(updateUserDto.email);
       if (existingUser && existingUser.id !== id) {
-        throw new ConflictException('Email is already taken');
+        throw new ConflictException('Електронна адреса вже використовується');
       }
       user.email = updateUserDto.email;
     }
@@ -140,7 +140,7 @@ export class UsersService {
     })
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(`Користувача з ID ${id} не знайдено`);
     }
 
     // Verify old password
@@ -150,7 +150,7 @@ export class UsersService {
     );
 
     if (!isOldPasswordValid) {
-      throw new ConflictException('Old password is incorrect');
+      throw new ConflictException('Старий пароль невірний');
     }
 
     // Hash new password
@@ -161,7 +161,7 @@ export class UsersService {
     user.tokenVersion += 1;
     console.log(user);
     await this.userRepository.save(user);
-    return 'Password updated successfully';
+    return 'Пароль успішно оновлено';
   }
 
   async incrementTokenVersion(id: number): Promise<void> {
@@ -185,7 +185,7 @@ export class UsersService {
     const result = await this.userRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      throw new NotFoundException(`Користувача з ID ${id} не знайдено`);
     }
   }
 }

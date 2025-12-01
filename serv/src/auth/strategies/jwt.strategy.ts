@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     
     // Check token version
     if (payload.tokenVersion !== user.tokenVersion) {
-      throw new UnauthorizedException('Token has been invalidated');
+      throw new UnauthorizedException('Токен було скасовано');
     }
 
     return {

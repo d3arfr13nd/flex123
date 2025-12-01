@@ -39,28 +39,28 @@ export const BookingsAdminPage: React.FC = () => {
 
   const columns = [
     {
-      title: 'Booking ID',
+      title: 'ID бронювання',
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: 'User',
+      title: 'Користувач',
       key: 'user',
       render: (_: any, record: Booking) =>
-        record.user ? `${record.user.name} (${record.user.email})` : 'N/A',
+        record.user ? `${record.user.name} (${record.user.email})` : 'Н/Д',
     },
     {
-      title: 'Room',
+      title: 'Кімната',
       dataIndex: 'room',
       key: 'room',
-      render: (room: Booking['room']) => room?.name || 'N/A',
+      render: (room: Booking['room']) => room?.name || 'Н/Д',
     },
     {
-      title: 'Date & Time',
+      title: 'Дата та час',
       key: 'datetime',
       render: (_: any, record: Booking) => (
         <div>
-          <div>{dayjs(record.dateStart).format('MMM DD, YYYY')}</div>
+          <div>{dayjs(record.dateStart).format('DD MMM YYYY')}</div>
           <div style={{ color: '#595959', fontSize: 12 }}>
             {dayjs(record.dateStart).format('HH:mm')} - {dayjs(record.dateEnd).format('HH:mm')}
           </div>
@@ -68,13 +68,13 @@ export const BookingsAdminPage: React.FC = () => {
       ),
     },
     {
-      title: 'Total Price',
+      title: 'Загальна ціна',
       dataIndex: 'totalPrice',
       key: 'totalPrice',
       render: (price: number | string) => `$${Number(price).toFixed(2)}`,
     },
     {
-      title: 'Status',
+      title: 'Статус',
       dataIndex: 'status',
       key: 'status',
       render: (status: BookingStatus, record: Booking) => (
@@ -84,16 +84,16 @@ export const BookingsAdminPage: React.FC = () => {
           style={{ width: 120 }}
         >
           <Select.Option value="pending">
-            <Tag color="cyan">PENDING</Tag>
+            <Tag color="cyan">ОЧІКУЄТЬСЯ</Tag>
           </Select.Option>
           <Select.Option value="paid">
-            <Tag color="green">PAID</Tag>
+            <Tag color="green">СПЛАЧЕНО</Tag>
           </Select.Option>
           <Select.Option value="cancelled">
-            <Tag color="red">CANCELLED</Tag>
+            <Tag color="red">СКАСОВАНО</Tag>
           </Select.Option>
           <Select.Option value="done">
-            <Tag>DONE</Tag>
+            <Tag>ЗАВЕРШЕНО</Tag>
           </Select.Option>
         </Select>
       ),
@@ -103,12 +103,12 @@ export const BookingsAdminPage: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer
-        title="All Bookings"
-        breadcrumb={[{ label: 'Bookings' }]}
+        title="Всі бронювання"
+        breadcrumb={[{ label: 'Бронювання' }]}
         extra={
           <Space>
             <Select
-              placeholder="Filter by status"
+              placeholder="Фільтр за статусом"
               allowClear
               style={{ width: 150 }}
               value={statusFilter}
@@ -117,10 +117,10 @@ export const BookingsAdminPage: React.FC = () => {
                 setPage(1);
               }}
               options={[
-                { label: 'Pending', value: 'pending' },
-                { label: 'Paid', value: 'paid' },
-                { label: 'Cancelled', value: 'cancelled' },
-                { label: 'Done', value: 'done' },
+                { label: 'Очікується', value: 'pending' },
+                { label: 'Сплачено', value: 'paid' },
+                { label: 'Скасовано', value: 'cancelled' },
+                { label: 'Завершено', value: 'done' },
               ]}
             />
             <RangePicker
@@ -151,7 +151,7 @@ export const BookingsAdminPage: React.FC = () => {
               }}
             />
           ) : (
-            <Empty description="No bookings found" />
+            <Empty description="Бронювання не знайдено" />
           )}
         </Card>
       </PageContainer>

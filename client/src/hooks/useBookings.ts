@@ -36,10 +36,10 @@ export const useCreateBooking = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myBookings'] });
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
-      message.success('Booking created successfully!');
+      message.success('Бронювання успішно створено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to create booking');
+      message.error(error.response?.data?.message || 'Не вдалося створити бронювання');
     },
   });
 };
@@ -52,10 +52,10 @@ export const useCancelBooking = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myBookings'] });
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
-      message.success('Booking cancelled successfully!');
+      message.success('Бронювання успішно скасовано!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to cancel booking');
+      message.error(error.response?.data?.message || 'Не вдалося скасувати бронювання');
     },
   });
 };
@@ -69,10 +69,10 @@ export const useUpdateBookingStatus = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       queryClient.invalidateQueries({ queryKey: ['myBookings'] });
-      message.success('Booking status updated successfully!');
+      message.success('Статус бронювання успішно оновлено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to update booking status');
+      message.error(error.response?.data?.message || 'Не вдалося оновити статус бронювання');
     },
   });
 };

@@ -21,7 +21,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
     {
       title: (
         <a href="/">
-          <HomeOutlined /> Home
+          <HomeOutlined /> Головна
         </a>
       ),
     },

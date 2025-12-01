@@ -30,10 +30,10 @@ export const ProfilePage: React.FC = () => {
         email: updatedUser.email,
         role: updatedUser.role,
       });
-      message.success('Profile updated successfully!');
+      message.success('Профіль успішно оновлено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to update profile');
+      message.error(error.response?.data?.message || 'Не вдалося оновити профіль');
     },
   });
 
@@ -43,10 +43,10 @@ export const ProfilePage: React.FC = () => {
       usersApi.updatePassword(data),
     onSuccess: () => {
       passwordForm.resetFields();
-      message.success('Password updated successfully!');
+      message.success('Пароль успішно оновлено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to update password');
+      message.error(error.response?.data?.message || 'Не вдалося оновити пароль');
     },
   });
 
@@ -69,7 +69,7 @@ export const ProfilePage: React.FC = () => {
     confirmPassword: string;
   }) => {
     if (values.newPassword !== values.confirmPassword) {
-      message.error('New passwords do not match!');
+      message.error('Нові паролі не співпадають!');
       return;
     }
     updatePasswordMutation.mutate({
@@ -81,10 +81,10 @@ export const ProfilePage: React.FC = () => {
   if (isLoading) {
     return (
       <MainLayout>
-        <PageContainer title="My Profile">
+        <PageContainer title="Мій профіль">
           <Card>
             <div style={{ textAlign: 'center', padding: '48px' }}>
-              <Text>Loading...</Text>
+              <Text>Завантаження...</Text>
             </div>
           </Card>
         </PageContainer>
@@ -95,11 +95,11 @@ export const ProfilePage: React.FC = () => {
   return (
     <MainLayout>
       <PageContainer
-        title="My Profile"
-        breadcrumb={[{ label: 'Profile' }]}
+        title="Мій профіль"
+        breadcrumb={[{ label: 'Профіль' }]}
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          <Card title="Personal Information">
+          <Card title="Особиста інформація">
             <Form
               form={form}
               layout="vertical"
@@ -111,32 +111,32 @@ export const ProfilePage: React.FC = () => {
             >
               <Form.Item
                 name="name"
-                label="Full Name"
-                rules={[{ required: true, message: 'Please input your name!' }]}
+                label="Повне ім'я"
+                rules={[{ required: true, message: 'Будь ласка, введіть ваше ім\'я!' }]}
               >
-                <Input prefix={<UserOutlined />} placeholder="Full Name" />
+                <Input prefix={<UserOutlined />} placeholder="Повне ім'я" />
               </Form.Item>
 
               <Form.Item
                 name="email"
-                label="Email"
+                label="Електронна адреса"
                 rules={[
-                  { required: true, message: 'Please input your email!' },
-                  { type: 'email', message: 'Please enter a valid email!' },
+                  { required: true, message: 'Будь ласка, введіть вашу електронну адресу!' },
+                  { type: 'email', message: 'Будь ласка, введіть валідну електронну адресу!' },
                 ]}
               >
-                <Input prefix={<MailOutlined />} placeholder="Email" />
+                <Input prefix={<MailOutlined />} placeholder="Електронна адреса" />
               </Form.Item>
 
               <Form.Item>
                 <Button type="primary" htmlType="submit" loading={updateMutation.isPending}>
-                  Update Profile
+                  Оновити профіль
                 </Button>
               </Form.Item>
             </Form>
           </Card>
 
-          <Card title="Change Password">
+          <Card title="Змінити пароль">
             <Form
               form={passwordForm}
               layout="vertical"
@@ -144,54 +144,54 @@ export const ProfilePage: React.FC = () => {
             >
               <Form.Item
                 name="oldPassword"
-                label="Current Password"
-                rules={[{ required: true, message: 'Please input your current password!' }]}
+                label="Поточний пароль"
+                rules={[{ required: true, message: 'Будь ласка, введіть ваш поточний пароль!' }]}
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="Current Password"
+                  placeholder="Поточний пароль"
                 />
               </Form.Item>
 
               <Form.Item
                 name="newPassword"
-                label="New Password"
+                label="Новий пароль"
                 rules={[
-                  { required: true, message: 'Please input your new password!' },
-                  { min: 8, message: 'Password must be at least 8 characters!' },
+                  { required: true, message: 'Будь ласка, введіть ваш новий пароль!' },
+                  { min: 8, message: 'Пароль повинен містити принаймні 8 символів!' },
                 ]}
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="New Password"
+                  placeholder="Новий пароль"
                 />
               </Form.Item>
 
               <Form.Item
                 name="confirmPassword"
-                label="Confirm New Password"
+                label="Підтвердити новий пароль"
                 dependencies={['newPassword']}
                 rules={[
-                  { required: true, message: 'Please confirm your new password!' },
+                  { required: true, message: 'Будь ласка, підтвердіть ваш новий пароль!' },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (!value || getFieldValue('newPassword') === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('Passwords do not match!'));
+                      return Promise.reject(new Error('Паролі не співпадають!'));
                     },
                   }),
                 ]}
               >
                 <Input.Password
                   prefix={<LockOutlined />}
-                  placeholder="Confirm New Password"
+                  placeholder="Підтвердити новий пароль"
                 />
               </Form.Item>
 
               <Form.Item>
                 <Button type="primary" htmlType="submit" loading={updatePasswordMutation.isPending}>
-                  Change Password
+                  Змінити пароль
                 </Button>
               </Form.Item>
             </Form>

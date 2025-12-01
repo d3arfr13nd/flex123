@@ -42,13 +42,13 @@ export class AuthService {
     const user = await this.usersService.findByEmail(loginDto.email);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Невірні облікові дані');
     }
 
     const isPasswordValid = await bcrypt.compare(loginDto.password, user.passwordHash);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Невірні облікові дані');
     }
 
     const tokens = await this.generateTokens(user.id, user.role, user.tokenVersion);
@@ -69,7 +69,7 @@ export class AuthService {
 
     // Check if token version matches
     if (user.tokenVersion !== oldTokenVersion) {
-      throw new UnauthorizedException('Token has been invalidated');
+      throw new UnauthorizedException('Токен було скасовано');
     }
 
     // Rotate token: increment version
@@ -84,7 +84,7 @@ export class AuthService {
   async logout(userId: number) {
     // Increment token version to invalidate all tokens
     await this.usersService.incrementTokenVersion(userId);
-    return { message: 'Logged out successfully' };
+    return { message: 'Вихід виконано успішно' };
   }
 
   async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
@@ -92,7 +92,7 @@ export class AuthService {
 
     if (!user) {
       // Don't reveal if user exists
-      return { message: 'If the email exists, a password reset link has been sent' };
+      return { message: 'Якщо електронна адреса існує, посилання для скидання пароля було надіслано' };
     }
 
     // Generate reset token
@@ -107,7 +107,7 @@ export class AuthService {
     // Send password reset link via email
     await this.emailService.sendPasswordResetLink(user.email, user.name, resetToken);
 
-    return { message: 'If the email exists, a password reset link has been sent' };
+    return { message: 'Якщо електронна адреса існує, посилання для скидання пароля було надіслано' };
   }
 
   async resetPassword(resetPasswordDto: ResetPasswordDto) {
@@ -117,7 +117,7 @@ export class AuthService {
       });
 
       if (payload.type !== 'password-reset') {
-        throw new BadRequestException('Invalid reset token');
+        throw new BadRequestException('Невірний токен скидання');
       }
 
       const user = await this.usersService.findOne(payload.userId);
@@ -131,9 +131,9 @@ export class AuthService {
       // Send confirmation email
       await this.emailService.sendPasswordResetConfirmation(user.email, user.name);
 
-      return { message: 'Password reset successfully' };
+      return { message: 'Пароль успішно скинуто' };
     } catch (error) {
-      throw new BadRequestException('Invalid or expired reset token');
+      throw new BadRequestException('Невірний або застарілий токен скидання');
     }
   }
 

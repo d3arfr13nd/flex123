@@ -25,15 +25,15 @@ export const UserEditDrawer: React.FC<UserEditDrawerProps> = ({
 
   return (
     <Drawer
-      title="Edit User"
+      title="Редагувати користувача"
       open={open}
       onClose={onClose}
       width={400}
       footer={
         <Space style={{ float: 'right' }}>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose}>Скасувати</Button>
           <Button type="primary" onClick={handleSubmit}>
-            Save
+            Зберегти
           </Button>
         </Space>
       }
@@ -49,18 +49,18 @@ export const UserEditDrawer: React.FC<UserEditDrawerProps> = ({
       >
         <Form.Item
           name="name"
-          label="Name"
-          rules={[{ required: true, message: 'Please input name!' }]}
+          label="Ім'я"
+          rules={[{ required: true, message: 'Будь ласка, введіть ім\'я!' }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
           name="email"
-          label="Email"
+          label="Електронна адреса"
           rules={[
-            { required: true, message: 'Please input email!' },
-            { type: 'email', message: 'Please enter a valid email!' },
+            { required: true, message: 'Будь ласка, введіть електронну адресу!' },
+            { type: 'email', message: 'Будь ласка, введіть валідну електронну адресу!' },
           ]}
         >
           <Input />
@@ -68,12 +68,12 @@ export const UserEditDrawer: React.FC<UserEditDrawerProps> = ({
 
         <Form.Item
           name="role"
-          label="Role"
-          rules={[{ required: true, message: 'Please select role!' }]}
+          label="Роль"
+          rules={[{ required: true, message: 'Будь ласка, оберіть роль!' }]}
         >
           <Select>
-            <Select.Option value="User">User</Select.Option>
-            <Select.Option value="Admin">Admin</Select.Option>
+            <Select.Option value="User">Користувач</Select.Option>
+            <Select.Option value="Admin">Адмін</Select.Option>
           </Select>
         </Form.Item>
       </Form>

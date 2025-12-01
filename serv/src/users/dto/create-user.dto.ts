@@ -3,14 +3,14 @@ import { UserRole } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsString()
-  @MinLength(2, { message: 'Name must be at least 2 characters long' })
+  @MinLength(2, { message: 'Ім\'я повинно містити принаймні 2 символи' })
   name: string;
 
-  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsEmail({}, { message: 'Електронна адреса повинна бути валідною' })
   email: string;
 
   @IsString()
-  @MinLength(8, { message: 'Password must be at least 8 characters long' })
+  @MinLength(8, { message: 'Пароль повинен містити принаймні 8 символів' })
   password: string;
 
   @IsOptional()

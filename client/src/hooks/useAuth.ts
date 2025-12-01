@@ -16,10 +16,10 @@ export const useAuth = () => {
       try {
         const response = await authApi.login(credentials);
         login(response.user, response.accessToken, response.refreshToken);
-        message.success('Login successful!');
+        message.success('Вхід успішний!');
         return response;
       } catch (error: any) {
-        message.error(error.response?.data?.message || 'Login failed');
+        message.error(error.response?.data?.message || 'Вхід не вдався');
         throw error;
       }
     },
@@ -31,10 +31,10 @@ export const useAuth = () => {
       try {
         const response = await authApi.register(userData);
         login(response.user, response.accessToken, response.refreshToken);
-        message.success('Registration successful!');
+        message.success('Реєстрація успішна!');
         return response;
       } catch (error: any) {
-        message.error(error.response?.data?.message || 'Registration failed');
+        message.error(error.response?.data?.message || 'Реєстрація не вдалася');
         throw error;
       }
     },
@@ -49,7 +49,7 @@ export const useAuth = () => {
       console.error('Logout API call failed:', error);
     } finally {
       logout();
-      message.success('Logged out successfully');
+      message.success('Вихід виконано успішно');
     }
   }, [logout]);
 

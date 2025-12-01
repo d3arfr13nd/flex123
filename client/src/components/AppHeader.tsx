@@ -22,7 +22,7 @@ export const AppHeader: React.FC = () => {
   const menuItems: MenuProps['items'] = [
     {
       key: 'profile',
-      label: 'Profile',
+      label: 'Профіль',
       icon: <UserOutlined />,
       onClick: () => navigate('/profile'),
     },
@@ -31,7 +31,7 @@ export const AppHeader: React.FC = () => {
     },
     {
       key: 'logout',
-      label: 'Logout',
+      label: 'Вихід',
       icon: <LogoutOutlined />,
       danger: true,
       onClick: handleLogout,

@@ -27,7 +27,7 @@ export class EmailService {
     const mailOptions = {
       from: `"${appName}" <${fromEmail}>`,
       to: email,
-      subject: 'Password Reset Request',
+      subject: 'Запит на скидання пароля',
       html: `
         <!DOCTYPE html>
         <html>
@@ -47,44 +47,44 @@ export class EmailService {
         <body>
           <div class="container">
             <div class="header">
-              <h1>Password Reset Request</h1>
+              <h1>Запит на скидання пароля</h1>
             </div>
             <div class="content">
-              <p>Hello ${userName},</p>
-              <p>We received a request to reset your password. Click the button below to reset it:</p>
+              <p>Вітаємо, ${userName},</p>
+              <p>Ми отримали запит на скидання вашого пароля. Натисніть кнопку нижче, щоб скинути його:</p>
               <div style="text-align: center;">
-                <a href="${resetLink}" class="button">Reset Password</a>
+                <a href="${resetLink}" class="button">Скинути пароль</a>
               </div>
-              <p>Or copy and paste this link into your browser:</p>
+              <p>Або скопіюйте та вставте це посилання у ваш браузер:</p>
               <div class="token-box">${resetLink}</div>
-              <p>If you prefer, you can also use this reset token directly:</p>
+              <p>Якщо бажаєте, ви також можете використати цей токен скидання безпосередньо:</p>
               <div class="token-box">${resetToken}</div>
               <div class="warning">
-                <strong>⚠️ Important:</strong> This link will expire in 1 hour. If you didn't request this password reset, please ignore this email or contact our support team.
+                <strong>⚠️ Важливо:</strong> Це посилання дійсне протягом 1 години. Якщо ви не запитували скидання пароля, будь ласка, проігноруйте цей лист або зв'яжіться з нашою службою підтримки.
               </div>
-              <p>Best regards,<br>The ${appName} Team</p>
+              <p>З повагою,<br>Команда ${appName}</p>
             </div>
             <div class="footer">
-              <p>This is an automated message. Please do not reply to this email.</p>
+              <p>Це автоматичне повідомлення. Будь ласка, не відповідайте на цей лист.</p>
             </div>
           </div>
         </body>
         </html>
       `,
       text: `
-        Hello ${userName},
+        Вітаємо, ${userName},
         
-        We received a request to reset your password. Use the following link to reset it:
+        Ми отримали запит на скидання вашого пароля. Використайте наступне посилання для скидання:
         
         ${resetLink}
         
-        Or use this reset token directly:
+        Або використайте цей токен скидання безпосередньо:
         ${resetToken}
         
-        ⚠️ Important: This link will expire in 1 hour. If you didn't request this password reset, please ignore this email or contact our support team.
+        ⚠️ Важливо: Це посилання дійсне протягом 1 години. Якщо ви не запитували скидання пароля, будь ласка, проігноруйте цей лист або зв'яжіться з нашою службою підтримки.
         
-        Best regards,
-        The ${appName} Team
+        З повагою,
+        Команда ${appName}
       `,
     };
 
@@ -120,52 +120,101 @@ export class EmailService {
         <body>
           <div class="container">
             <div class="header">
-              <h1>Password Reset Successful</h1>
+              <h1>Пароль успішно скинуто</h1>
             </div>
             <div class="content">
-              <p>Hello ${userName},</p>
-              <p>This is to confirm that your password has been successfully reset.</p>
-              <p>If you did not make this change, please contact our support team immediately.</p>
-              <p>For security reasons, we recommend that you:</p>
+              <p>Вітаємо, ${userName},</p>
+              <p>Це підтвердження того, що ваш пароль було успішно скинуто.</p>
+              <p>Якщо ви не робили цю зміну, будь ласка, негайно зв'яжіться з нашою службою підтримки.</p>
+              <p>З міркувань безпеки ми рекомендуємо вам:</p>
               <ul>
-                <li>Use a strong, unique password</li>
-                <li>Never share your password with anyone</li>
-                <li>Enable two-factor authentication if available</li>
+                <li>Використовувати надійний, унікальний пароль</li>
+                <li>Ніколи не ділитися своїм паролем з кимось</li>
+                <li>Увімкнути двофакторну аутентифікацію, якщо вона доступна</li>
               </ul>
-              <p>Best regards,<br>The ${appName} Team</p>
+              <p>З повагою,<br>Команда ${appName}</p>
             </div>
             <div class="footer">
-              <p>This is an automated message. Please do not reply to this email.</p>
+              <p>Це автоматичне повідомлення. Будь ласка, не відповідайте на цей лист.</p>
             </div>
           </div>
         </body>
         </html>
       `,
       text: `
-        Hello ${userName},
+        Вітаємо, ${userName},
         
-        This is to confirm that your password has been successfully reset.
+        Це підтвердження того, що ваш пароль було успішно скинуто.
         
-        If you did not make this change, please contact our support team immediately.
+        Якщо ви не робили цю зміну, будь ласка, негайно зв'яжіться з нашою службою підтримки.
         
-        For security reasons, we recommend that you:
-        - Use a strong, unique password
-        - Never share your password with anyone
-        - Enable two-factor authentication if available
+        З міркувань безпеки ми рекомендуємо вам:
+        - Використовувати надійний, унікальний пароль
+        - Ніколи не ділитися своїм паролем з кимось
+        - Увімкнути двофакторну аутентифікацію, якщо вона доступна
         
-        Best regards,
-        The ${appName} Team
+        З повагою,
+        Команда ${appName}
       `,
     };
 
-    console.log(1);
     try {
       await this.transporter.sendMail({
         from: `"${appName}" <${fromEmail}>`,
         to: email,
-        subject: 'Password Reset Successful',
-        html: "test1",
-        text: "test2",
+        subject: 'Пароль успішно скинуто',
+        html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }
+            .content { background-color: #f9f9f9; padding: 30px; border-radius: 0 0 5px 5px; }
+            .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Пароль успішно скинуто</h1>
+            </div>
+            <div class="content">
+              <p>Вітаємо, ${userName},</p>
+              <p>Це підтвердження того, що ваш пароль було успішно скинуто.</p>
+              <p>Якщо ви не робили цю зміну, будь ласка, негайно зв'яжіться з нашою службою підтримки.</p>
+              <p>З міркувань безпеки ми рекомендуємо вам:</p>
+              <ul>
+                <li>Використовувати надійний, унікальний пароль</li>
+                <li>Ніколи не ділитися своїм паролем з кимось</li>
+                <li>Увімкнути двофакторну аутентифікацію, якщо вона доступна</li>
+              </ul>
+              <p>З повагою,<br>Команда ${appName}</p>
+            </div>
+            <div class="footer">
+              <p>Це автоматичне повідомлення. Будь ласка, не відповідайте на цей лист.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+        text: `
+        Вітаємо, ${userName},
+        
+        Це підтвердження того, що ваш пароль було успішно скинуто.
+        
+        Якщо ви не робили цю зміну, будь ласка, негайно зв'яжіться з нашою службою підтримки.
+        
+        З міркувань безпеки ми рекомендуємо вам:
+        - Використовувати надійний, унікальний пароль
+        - Ніколи не ділитися своїм паролем з кимось
+        - Увімкнути двофакторну аутентифікацію, якщо вона доступна
+        
+        З повагою,
+        Команда ${appName}
+      `,
       });
     } catch (error) {
       console.error('Error sending password reset confirmation email:', error);

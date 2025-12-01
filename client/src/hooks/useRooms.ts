@@ -32,10 +32,10 @@ export const useCreateRoom = () => {
     mutationFn: (data: CreateRoomDto) => roomsApi.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['rooms'] });
-      message.success('Room created successfully!');
+      message.success('Кімнату успішно створено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to create room');
+      message.error(error.response?.data?.message || 'Не вдалося створити кімнату');
     },
   });
 };
@@ -49,10 +49,10 @@ export const useUpdateRoom = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['rooms'] });
       queryClient.invalidateQueries({ queryKey: ['room', variables.id] });
-      message.success('Room updated successfully!');
+      message.success('Кімнату успішно оновлено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to update room');
+      message.error(error.response?.data?.message || 'Не вдалося оновити кімнату');
     },
   });
 };
@@ -64,10 +64,10 @@ export const useDeleteRoom = () => {
     mutationFn: (id: number) => roomsApi.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['rooms'] });
-      message.success('Room deleted successfully!');
+      message.success('Кімнату успішно видалено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to delete room');
+      message.error(error.response?.data?.message || 'Не вдалося видалити кімнату');
     },
   });
 };
@@ -81,10 +81,10 @@ export const useUploadRoomPhotos = () => {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['rooms'] });
       queryClient.invalidateQueries({ queryKey: ['room', variables.roomId] });
-      message.success('Photos uploaded successfully!');
+      message.success('Фото успішно завантажено!');
     },
     onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Failed to upload photos');
+      message.error(error.response?.data?.message || 'Не вдалося завантажити фото');
     },
   });
 };

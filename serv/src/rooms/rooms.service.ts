@@ -20,7 +20,7 @@ export class RoomsService {
     });
 
     if (existingRoom) {
-      throw new ConflictException('Room with this slug already exists');
+      throw new ConflictException('Кімната з таким slug вже існує');
     }
 
     const room = this.roomRepository.create({
@@ -102,7 +102,7 @@ export class RoomsService {
     });
 
     if (!room) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Кімнату з ID ${id} не знайдено`);
     }
 
     return room;
@@ -118,14 +118,14 @@ export class RoomsService {
     const room = await this.roomRepository.findOne({ where: { id } });
 
     if (!room) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Кімнату з ID ${id} не знайдено`);
     }
 
     // Check if slug is being updated and if it conflicts with another room
     if (updateRoomDto.slug && updateRoomDto.slug !== room.slug) {
       const existingRoom = await this.findBySlug(updateRoomDto.slug);
       if (existingRoom && existingRoom.id !== id) {
-        throw new ConflictException('Room with this slug already exists');
+        throw new ConflictException('Кімната з таким slug вже існує');
       }
       room.slug = updateRoomDto.slug;
     }
@@ -174,7 +174,7 @@ export class RoomsService {
     const result = await this.roomRepository.delete(id);
 
     if (result.affected === 0) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Кімнату з ID ${id} не знайдено`);
     }
   }
 
@@ -185,7 +185,7 @@ export class RoomsService {
     const room = await this.findOne(id);
 
     if (!room) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Кімнату з ID ${id} не знайдено`);
     }
 
     // Generate time slots for the day (9 AM to 6 PM, hourly slots)
@@ -232,7 +232,7 @@ export class RoomsService {
     const room = await this.findOne(id);
 
     if (!room) {
-      throw new NotFoundException(`Room with ID ${id} not found`);
+      throw new NotFoundException(`Кімнату з ID ${id} не знайдено`);
     }
 
     // Add new photos to existing photos array
